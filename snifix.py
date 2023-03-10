@@ -1,7 +1,7 @@
 #!/bin/env python
 #
 #
-#	            ███  ██   ██ ██  ████ ██ ██   ██
+#	                ███  ██   ██ ██  ████ ██ ██   ██
 #                  █     ███  ██    ██        ██ ██
 #                   ███  ██ █ ██ ██ ████  ██   ███ 
 #                      █ ██  ███ ██ ██    ██  ██ ██
@@ -11,30 +11,38 @@
 #
 #          HTTP Data Packet Catcher Man In The Middle Python Script Design for Testing
 #  Purposes & Only For Educational Purposes. source from web, Edited by Thumula Basura
-#  Suraweera (AN0XT0V0). Enjoy :)
+#  Suraweera (anoxtovo). Enjoy :)
 #  
 #  filename    :     snifix.py
 #  language    :     python
 #  version     :     version 1.0
-#  author      :     Thumula Basura Suraweera (AN0XT0V0)
+#  author      :     Thumula Basura Suraweera (anoxtovo)
 #  lisense     :     MIT Lisense 
 
 
 from scapy.all import *
-
-#Import HTTP Packet
 from scapy.layers.http import HTTPRequest
-
 from colorama import init, Fore
+import platform
+import subprocess
+import argparse
 
 #Initialize colorama
-
 GREEN = Fore.GREEN
 RED = Fore.RED
 RESET = Fore.RESET
 
+def clearScreen():
+    systemType = platform.system()
+    if(systemType == "Windows"):
+        subprocess.run("cls", shell=True)
+    else:
+        subprocess.run("clear", shell=True)
+
+
 def bannerMain():
-	print("""
+    clearScreen()
+    print("""
      ███  ██   ██ ██  ████ ██ ██   ██
     █     ███  ██    ██        ██ ██
      ███  ██ █ ██ ██ ████  ██   ███ 
@@ -77,7 +85,6 @@ def process_packet(packet):
 
 if __name__ == "__main__":
     bannerMain()
-    import argparse
     parser = argparse.ArgumentParser(description="HTTP Packet Sniffer, this is useful when you're a man in the middle. It is suggested that run arp spoof before you use this script, otherwise it'll sniff your personal packets")
     parser.add_argument("-i", "--iface", help="Interface to use, default is scapy's default interface")
     parser.add_argument("--show-raw", dest="show_raw", action="store_true", help="Whether to print POST raw data, such as password, search quries, etc.")
